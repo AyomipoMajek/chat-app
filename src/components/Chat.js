@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { addDoc, collection, serverTimestamp, onSnapshot, query, where, orderBy } from 'firebase/firestore';
+import {
+  addDoc, collection, serverTimestamp, onSnapshot, query, where, orderBy,
+} from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 
 const Chat = (props) => {
@@ -11,8 +13,7 @@ const Chat = (props) => {
 
   useEffect(() => {
     const queryMessages = query(messagesRef, where('room', '==', room),
-    orderBy("createdAt")
-    );
+      orderBy('createdAt'));
 
     const unsuscribe = onSnapshot(queryMessages, (snapshot) => {
       const messages = [];
@@ -41,17 +42,23 @@ const Chat = (props) => {
   };
 
   return (
-    <div className='chat'>
-      <div className='header'>
-        <h1>Welcome to: {room.toUpperCase()}</h1>
+    <div className="chat">
+      <div className="header">
+        <h1>
+          Welcome to:
+          {room.toUpperCase()}
+        </h1>
       </div>
-      <div className="messages"> {messages.map((message) => (
-      <div className='message' key={message.id}>
-      <span className='user'>{message.user}</span>
-      {message.text}
+      <div className="messages">
+        {' '}
+        {messages.map((message) => (
+          <div className="message" key={message.id}>
+            <span className="user">{message.user}</span>
+            {message.text}
+          </div>
+        ))}
       </div>
-      ))}</div>
-      <form onSubmit={handleSubmit} className='new'>
+      <form onSubmit={handleSubmit} className="new">
         <input
           className="new-message"
           placeholder="Type your message here..."
